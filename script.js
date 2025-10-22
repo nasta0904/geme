@@ -1,38 +1,45 @@
- let currentLevel = 1;
+   // Глобальные переменные
+        let currentLevel = 1;
         const totalLevels = 4;
 
+        // Функция для обработки нажатия Enter
+        function handleEnter(event, checkFunction) {
+            if (event.key === 'Enter') {
+                checkFunction();
+            }
+        }
+
+        // Обновление прогресс-бара
         function updateProgress() {
-            const progress = (currentLevel / totalLevels) * 100;
+            const progress = ((currentLevel - 1) / totalLevels) * 100;
             document.getElementById('progress').style.width = progress + '%';
         }
 
+        // Показать уровень
         function showLevel(level) {
             document.querySelectorAll('.challenge').forEach(challenge => {
                 challenge.classList.remove('active');
             });
-            document.getElementById(`challenge-${level}`).classList.add('active');
-        }
-
-        function createConfetti() {
-            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3'];
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.animationDelay = Math.random() * 5 + 's';
-                document.body.appendChild(confetti);
-                
-                setTimeout(() => confetti.remove(), 5000);
+            const challengeElement = document.getElementById(`challenge-${level}`);
+            if (challengeElement) {
+                challengeElement.classList.add('active');
             }
         }
 
+        // Проверка HTML
         function checkHTML() {
-            const input = document.getElementById('html-input').value.toLowerCase();
+            const input = document.getElementById('html-input');
             const feedback = document.getElementById('html-feedback');
             
-            if (input.includes('<h1>') && input.includes('</h1>') && 
-                (input.includes('<p>') || input.includes('<div>'))) {
+            if (!input) {
+                console.error('HTML input not found');
+                return;
+            }
+            
+            const value = input.value.toLowerCase();
+            
+            if (value.includes('<h1>') && value.includes('</h1>') && 
+                (value.includes('<p>') || value.includes('<div>'))) {
                 feedback.className = 'feedback success';
                 feedback.innerHTML = '✅ Отлично! Ты создал правильную структуру HTML!';
                 setTimeout(() => {
@@ -42,13 +49,19 @@
                 }, 1500);
             } else {
                 feedback.className = 'feedback error';
-                feedback.innerHTML = '❌ Почти! Убедись, что используешь теги h1 и p/div';
+                feedback.innerHTML = '❌ Почти! Убедись, что используешь теги h1 и p/div. Пример: &lt;h1&gt;Заголовок&lt;/h1&gt;&lt;p&gt;Текст&lt;/p&gt;';
             }
         }
 
+        // Проверка CSS
         function checkCSS() {
             const select = document.getElementById('css-select');
             const feedback = document.getElementById('css-feedback');
+            
+            if (!select) {
+                console.error('CSS select not found');
+                return;
+            }
             
             if (select.value === "color: blue; text-align: center;") {
                 feedback.className = 'feedback success';
@@ -64,11 +77,20 @@
             }
         }
 
+        // Проверка JavaScript
         function checkJS() {
-            const input = document.getElementById('js-input').value.toLowerCase();
+            const input = document.getElementById('js-input');
             const feedback = document.getElementById('js-feedback');
             
-            if (input.includes('alert') || input.includes('изменить') || input.includes('change')) {
+            if (!input) {
+                console.error('JS input not found');
+                return;
+            }
+            
+            const value = input.value.toLowerCase();
+            
+            if (value.includes('alert') || value.includes('изменить') || value.includes('change') || 
+                value.includes('console.log') || value.includes('document')) {
                 feedback.className = 'feedback success';
                 feedback.innerHTML = '⚡ Удивительно! JavaScript оживил твою страницу!';
                 setTimeout(() => {
@@ -78,10 +100,11 @@
                 }, 1500);
             } else {
                 feedback.className = 'feedback error';
-                feedback.innerHTML = '⚡ Интересная идея, но попробуй добавить всплывающее окно или изменить содержимое страницы';
+                feedback.innerHTML = '⚡ Интересная идея, но попробуй добавить всплывающее окно или изменить содержимое страницы. Пример: alert("Привет!")';
             }
         }
 
+        // Проверка комбинированного задания
         function checkCombined() {
             const feedback = document.getElementById('combined-feedback');
             
@@ -93,16 +116,17 @@
                 document.querySelectorAll('.challenge').forEach(challenge => {
                     challenge.style.display = 'none';
                 });
-                createConfetti();
             }, 2000);
         }
 
+        // Показать подсказку
         function showHint(level) {
             const feedback = document.getElementById('combined-feedback');
             feedback.className = 'feedback success';
-            feedback.innerHTML = '💡 Подсказка: Нужно добавить обработчики событий для кнопок, которые изменяют переменную count и обновляют текст в span';
+            feedback.innerHTML = '💡 Подсказка: Нужно добавить обработчики событий для кнопок, которые изменяют переменную count и обновляют текст в span. Пример: document.getElementById("increase").addEventListener("click", function() { count++; document.getElementById("count").textContent = count; })';
         }
 
+        // Перезапуск квеста
         function restartQuest() {
             currentLevel = 1;
             updateProgress();
@@ -110,10 +134,27 @@
             document.getElementById('completion').style.display = 'none';
             
             // Сброс всех полей ввода
-            document.getElementById('html-input').value = '';
-            document.getElementById('css-select').selectedIndex = 0;
-            document.getElementById('js-input').value = '';
+            const htmlInput = document.getElementById('html-input');
+            const cssSelect = document.getElementById('css-select');
+            const jsInput = document.getElementById('js-input');
+            
+            if (htmlInput) htmlInput.value = '';
+            if (cssSelect) cssSelect.selectedIndex = 0;
+            if (jsInput) jsInput.value = '';
+            
+            // Сброс фидбека
+            document.querySelectorAll('.feedback').forEach(feedback => {
+                feedback.style.display = 'none';
+            });
+            
+            // Показать все вызовы
+            document.querySelectorAll('.challenge').forEach(challenge => {
+                challenge.style.display = 'block';
+            });
         }
 
-        // Инициализация
-        updateProgress();
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            console.log('Квест инициализирован!');
+        });
