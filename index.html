@@ -1,0 +1,182 @@
+</head>
+<body>
+    <!-- Анимированный фон -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎮 Квест: Три Столпа Веб-Разработки</h1>
+            <p>Пройди все испытания и стань мастером фронтенда!</p>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="level-indicator">
+                    <span>Уровень 1: HTML</span>
+                    <span>Уровень 2: CSS</span>
+                    <span>Уровень 3: JavaScript</span>
+                    <span>Уровень 4: Комбо</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="quest-content">
+            <!-- Уровень 1: HTML -->
+            <div class="challenge active" id="challenge-1">
+                <div class="challenge-header">
+                    <div class="challenge-icon">🎯</div>
+                    <div>
+                        <h2>Уровень 1: Структура HTML</h2>
+                        <p>Создай основу веб-страницы!</p>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <p>Ты оказался в пустом HTML-документе. Создай базовую структуру страницы:</p>
+                    <div class="code-editor">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Моя страница&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span style="background: rgba(52, 152, 219, 0.3); padding: 2px 5px; border-radius: 3px;">&lt;!-- Твой код здесь --&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                    <div class="hint">
+                        💡 Подсказка: Используй теги &lt;h1&gt; для заголовка и &lt;p&gt; для параграфа
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="html-input" placeholder="Например: &lt;h1&gt;Привет!&lt;/h1&gt;">
+                        <button class="btn-primary" onclick="checkHTML()">🚀 Проверить код</button>
+                    </div>
+                    <div class="feedback" id="html-feedback"></div>
+                </div>
+            </div>
+
+            <!-- Уровень 2: CSS -->
+            <div class="challenge" id="challenge-2">
+                <div class="challenge-header">
+                    <div class="challenge-icon">🎨</div>
+                    <div>
+                        <h2>Уровень 2: Стили CSS</h2>
+                        <p>Преврати скучную страницу в шедевр!</p>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <p>Твоя страница выглядит скучно! Добавь стили, чтобы сделать её красивой:</p>
+                    <div class="code-editor">
+/* Сделай заголовок синим и выровняй по центру */
+h1 {
+    <span style="background: rgba(52, 152, 219, 0.3); padding: 2px 5px; border-radius: 3px;">/* Добавь стили здесь */</span>
+}
+
+/* Добавь отступы для параграфа */
+p {
+    margin: 20px;
+}
+                    </div>
+                    <div class="input-group">
+                        <select id="css-select">
+                            <option value="">🎨 Выбери стиль...</option>
+                            <option value="color: blue; text-align: center;">💙 Синий по центру</option>
+                            <option value="font-size: 24px; background: yellow;">💛 Большой с фоном</option>
+                            <option value="border: 2px solid red; padding: 10px;">❤️ Рамка с отступом</option>
+                        </select>
+                        <button class="btn-primary" onclick="checkCSS()">🎯 Применить стили</button>
+                    </div>
+                    <div class="feedback" id="css-feedback"></div>
+                </div>
+            </div>
+
+            <!-- Уровень 3: JavaScript -->
+            <div class="challenge" id="challenge-3">
+                <div class="challenge-header">
+                    <div class="challenge-icon">⚡</div>
+                    <div>
+                        <h2>Уровень 3: Магия JavaScript</h2>
+                        <p>Оживи свою страницу!</p>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <p>Добавь интерактивности! Создай функцию, которая реагирует на клик:</p>
+                    <div class="code-editor">
+// Найди кнопку и добавь обработчик события
+const button = document.getElementById('myButton');
+
+button.addEventListener('click', function() {
+    <span style="background: rgba(52, 152, 219, 0.3); padding: 2px 5px; border-radius: 3px;">// Твой код здесь</span>
+});
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="js-input" placeholder="Например: alert('Привет!')">
+                        <button class="btn-primary" onclick="checkJS()">⚡ Запустить код</button>
+                    </div>
+                    <div class="feedback" id="js-feedback"></div>
+                </div>
+            </div>
+
+            <!-- Уровень 4: Комбинированный -->
+            <div class="challenge" id="challenge-4">
+                <div class="challenge-header">
+                    <div class="challenge-icon">🔗</div>
+                    <div>
+                        <h2>Уровень 4: Комбинированная атака</h2>
+                        <p>Собери всё вместе!</p>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <p>Создай полноценный интерактивный элемент:</p>
+                    <div class="code-editor">
+&lt;!-- HTML --&gt;
+&lt;div class="counter"&gt;
+    &lt;button id="decrease"&gt;-&lt;/button&gt;
+    &lt;span id="count"&gt;0&lt;/span&gt;
+    &lt;button id="increase"&gt;+&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+/* CSS */
+.counter {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+&lt;/style&gt;
+
+&lt;script&gt;
+// JavaScript
+let count = 0;
+<span style="background: rgba(52, 152, 219, 0.3); padding: 2px 5px; border-radius: 3px;">// Добавь логику счетчика</span>
+&lt;/script&gt;
+                    </div>
+                    <div class="input-group">
+                        <button class="btn-secondary" onclick="showHint(4)">💡 Показать подсказку</button>
+                        <button class="btn-primary" onclick="checkCombined()">🏁 Проверить решение</button>
+                    </div>
+                    <div class="feedback" id="combined-feedback"></div>
+                </div>
+            </div>
+
+            <!-- Завершение -->
+            <div class="completion" id="completion">
+                <div class="badge">🏆</div>
+                <h2 style="font-size: 2.5em; margin-bottom: 20px;">Поздравляем! 🎉</h2>
+                <p style="font-size: 1.3em; margin-bottom: 15px;">Ты успешно прошел квест "Три Столпа Веб-Разработки"!</p>
+                <p style="font-size: 1.1em; margin-bottom: 30px;">Теперь ты владеешь основами HTML, CSS и JavaScript.</p>
+                <button class="btn-primary" onclick="restartQuest()">🔄 Начать заново</button>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
